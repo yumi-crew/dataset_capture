@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include",
-                "/opt/ros/dashing/include"
+                "/opt/ros/eloquent/include"
             ],
             "defines": [],
             "compilerPath": "C_Cpp.default.compilerPath",
