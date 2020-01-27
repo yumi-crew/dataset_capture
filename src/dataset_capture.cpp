@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 	Zivid::Application zivid;
 	std::cout << "Connecting to camera...\n";
 	Zivid::Camera camera = zivid.connectCamera();
-	//Zivid::Camera camera = zivid.createFileCamera("ZividOnePlusMedium.zdf");//("img.zdf");
+	// Zivid::Camera camera = zivid.createFileCamera("ZividOnePlusMedium.zdf");//("img.zdf");
 	std::cout << "Connected\n";
 
 	//init point cloud visualizer
@@ -46,14 +46,14 @@ int main(int argc, char* argv[]) {
 
 	std::string save_query{ "" };
 	std::vector<double> pose;
-
+	std::string continue_query;
 	int counter{ 0 };
 	while (counter < dataset_size) {
 		std::cout << "Press enter for next capture\n";
-		std::cin.get();
+		std::cin >> continue_query;
 		try {
 			Zivid::Frame frame = capture_frame(&camera);
-			//display the image for manual verification
+			// display the image for manual verification
 			vis.showMaximized();
 			vis.show(frame);
 			vis.resetToFit();
@@ -65,14 +65,14 @@ int main(int argc, char* argv[]) {
 			if (!save_query.compare("y")) {
 				
 				pose = pose_grabber->grab_pose("ROB_L");
-				std::ofstream pose_file("pose" + counter);
+				std::ofstream pose_file(dest_dir + "/pose" + std::to_string(counter) + ".txt");
 				for (auto p : pose) { //write pose to terminal and file
 					std::cout << p << " ";
 					pose_file << p << " ";
-					}
+				}
 				pose_file.close();
 
-				frame.save(dest_dir + "img" + std::to_string(counter) + ".zdf");
+				frame.save(dest_dir + "/img" + std::to_string(counter) + ".zdf");
 				counter++;
 			}
 		}
