@@ -9,7 +9,9 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
 find_package(abb_librws REQUIRED)
 find_package(Poco 1.4.3 REQUIRED
              COMPONENTS Net
@@ -23,7 +25,7 @@ target_include_directories(pose_grabber PRIVATE include ${Poco_LIBRARIES})
 ament_target_dependencies(pose_grabber
                           rclcpp
                           abb_librws
-                          poco)
+                          Poco)
 set(SRC_FILES
     dataset_capture.cpp
     pose_grabber.cpp      
